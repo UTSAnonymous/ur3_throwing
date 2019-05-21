@@ -8,8 +8,8 @@ from trajectory_msgs.msg import JointTrajectory
 from trajectory_msgs.msg import JointTrajectoryPoint
 from sensor_msgs.msg import JointState
 import math
-from ur3_throwing.srv import ur3_move
 from ur3_throwing.srv import ur3_throw
+from std_srvs.srv import Empty
 
 """
 	This python script is responsible for:
@@ -43,27 +43,26 @@ def ur3_throwing_server():
 	global joint_speed_pub
 
     # create publisher to publish to the ur_driver/joint_speed
-	joint_speed_pub = rospy.Publisher('ur_driver/joint_speed',JointTrajectory, queue_size=30)
+	joint_speed_pub = rospy.Publisher('ur_driver/joint_speed',JointTrajectory, queue_size=60)
 
 	# subscriber
 	rospy.Subscriber("/joint_states",JointState, callback)
 
 	# create a service
-	s = rospy.Service('ur3_throw',ur3_throw,ThrowTrajectory)
+	s = rospy.Service('ur3_throw',Empty,ThrowTrajectory)
 
 	rospy.spin()
 
 def ThrowTrajectory(req):
 
-	if req.throw is True:
-		test_move_with_stop()
-		return True
-	else:
-		return False
+	test_move_with_stop()
+	list = []
+	return list
+
 
 def test_move_with_stop():
 
-	rate = rospy.Rate(130)
+	rate = rospy.Rate(135)
 	trajectory = JointTrajectory()
 
 	trajectory.header.stamp=rospy.Time.now()
@@ -90,13 +89,13 @@ def test_move_with_stop():
 			count = 0
 
 		# for giving the boost needed when reaching the top
-		if elbow < 90 and wrist_moving == False:
-			wrist_speed = -4.5
+		if elbow < 70 and wrist_moving == False:
+			wrist_speed = -5.5
 			wrist_moving = True
 
 		# for making sure the arm stops after a certain joint angle
-		if elbow > 45:
-			trajectory.points = [JointTrajectoryPoint(positions=[0]*6, velocities=[0, 0, elbow_speed, wrist_speed, 0, 0], accelerations=[0, 0, 1.8, 0, 0, 0])]
+		if elbow > 25:
+			trajectory.points = [JointTrajectoryPoint(positions=[0]*6, velocities=[0, 0, elbow_speed, wrist_speed, 0, 0], accelerations=[0, 0, 1.8, 2.5, 0, 0])]
 		else:
 			# for elbow_speed
 			if elbow_speed < -0.08:

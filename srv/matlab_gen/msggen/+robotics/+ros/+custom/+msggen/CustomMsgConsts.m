@@ -6,9 +6,6 @@ classdef CustomMsgConsts
     %   Copyright 2014-2019 The MathWorks, Inc.
     
     properties (Constant)
-        ur3_throwing_ur3_move = 'ur3_throwing/ur3_move'
-        ur3_throwing_ur3_moveRequest = 'ur3_throwing/ur3_moveRequest'
-        ur3_throwing_ur3_moveResponse = 'ur3_throwing/ur3_moveResponse'
         ur3_throwing_ur3_throw = 'ur3_throwing/ur3_throw'
         ur3_throwing_ur3_throwRequest = 'ur3_throwing/ur3_throwRequest'
         ur3_throwing_ur3_throwResponse = 'ur3_throwing/ur3_throwResponse'
@@ -21,11 +18,9 @@ classdef CustomMsgConsts
             
             persistent msgList
             if isempty(msgList)
-                msgList = cell(4, 1);
-                msgList{1} = 'ur3_throwing/ur3_moveRequest';
-                msgList{2} = 'ur3_throwing/ur3_moveResponse';
-                msgList{3} = 'ur3_throwing/ur3_throwRequest';
-                msgList{4} = 'ur3_throwing/ur3_throwResponse';
+                msgList = cell(2, 1);
+                msgList{1} = 'ur3_throwing/ur3_throwRequest';
+                msgList{2} = 'ur3_throwing/ur3_throwResponse';
             end
             
             messageList = msgList;
@@ -37,9 +32,8 @@ classdef CustomMsgConsts
             
             persistent svcList
             if isempty(svcList)
-                svcList = cell(2, 1);
-                svcList{1} = 'ur3_throwing/ur3_move';
-                svcList{2} = 'ur3_throwing/ur3_throw';
+                svcList = cell(1, 1);
+                svcList{1} = 'ur3_throwing/ur3_throw';
             end
             
             % The message list was already sorted, so don't need to sort

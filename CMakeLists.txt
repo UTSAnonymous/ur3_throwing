@@ -60,8 +60,6 @@ catkin_python_setup()
 ## Generate services in the 'srv' folder
 add_service_files(
 	FILES 
-	ur3_throw.srv
-	ur3_move.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -75,7 +73,6 @@ add_service_files(
  generate_messages(
   DEPENDENCIES
   std_msgs  # Or other packages containing msgs
-  ur3_throwing
 )
 
 ################################################
