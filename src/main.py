@@ -89,13 +89,13 @@ def test_move_with_stop():
 			count = 0
 
 		# for giving the boost needed when reaching the top
-		if elbow < 70 and wrist_moving == False:
-			wrist_speed = -5.5
+		if elbow < 100 and wrist_moving == False:
+			wrist_speed = -4.5
 			wrist_moving = True
 
 		# for making sure the arm stops after a certain joint angle
-		if elbow > 25:
-			trajectory.points = [JointTrajectoryPoint(positions=[0]*6, velocities=[0, 0, elbow_speed, wrist_speed, 0, 0], accelerations=[0, 0, 1.8, 2.5, 0, 0])]
+		if elbow > 30:
+			trajectory.points = [JointTrajectoryPoint(positions=[0]*6, velocities=[0, 0, elbow_speed, wrist_speed, 0, 0])] # accelerations=[0, 0, 0, 0, 0, 0]
 		else:
 			# for elbow_speed
 			if elbow_speed < -0.08:
